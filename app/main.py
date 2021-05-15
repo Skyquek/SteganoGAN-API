@@ -1,4 +1,3 @@
-import nest_asyncio
 import torch.cuda
 import uvicorn
 from fastapi import FastAPI, HTTPException
@@ -19,8 +18,6 @@ steganogan = SteganoGAN.load(architecture='dense', cuda=False, verbose=True)
 
 app = FastAPI(debug=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
-nest_asyncio.apply()
-
 
 class encodedImage(BaseModel):
     img: str
@@ -82,7 +79,7 @@ def decodeImage(qImage: decodedImage):
     return hiddenMsg
 
 
-uvicorn.run(app, host="0.0.0.0", port=80)
+uvicorn.run(app, host="0.0.0.0", port=8000)
 
 # from fastapi import FastAPI
 #
