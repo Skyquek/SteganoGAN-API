@@ -79,18 +79,4 @@ def decodeImage(qImage: decodedImage):
     return hiddenMsg
 
 
-uvicorn.run(app, host="0.0.0.0", port=8000)
-
-# from fastapi import FastAPI
-#
-# app = FastAPI()
-#
-#
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World"}
-#
-#
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: str = None):
-#     return {"item_id": item_id, "q": q}
+uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="/etc/letsencrypt/live/ai.maiot.academy/privkey.pem", ssl_certfile="/etc/letsencrypt/live/ai.maiot.academy/fullchain.pem")
