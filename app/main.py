@@ -79,4 +79,4 @@ def decodeImage(qImage: decodedImage):
     return hiddenMsg
 
 
-uvicorn.run(app, host="0.0.0.0", port=8000, ssl_keyfile="/etc/letsencrypt/live/ai.maiot.academy/privkey.pem", ssl_certfile="/etc/letsencrypt/live/ai.maiot.academy/fullchain.pem")
+uvicorn.run(app, host="0.0.0.0", port=8000)
