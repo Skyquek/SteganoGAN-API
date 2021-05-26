@@ -14,8 +14,8 @@ import base64
 import os
 import nest_asyncio
 
-#steganogan = SteganoGAN.load(architecture='dense', cuda=False, verbose=True)
-steganogan = SteganoGAN.load(architecture='dense', verbose=True)
+steganogan = SteganoGAN.load(architecture='dense', cuda=False, verbose=True)
+# steganogan = SteganoGAN.load(architecture='dense', verbose=True)
 
 # Debug
 # hiddenMsg = steganogan.decode('output.png')
