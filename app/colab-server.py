@@ -1,4 +1,3 @@
-import torch.cuda
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -15,8 +14,12 @@ import base64
 import os
 import nest_asyncio
 
-device = torch.cuda.device("cpu")
-steganogan = SteganoGAN.load(architecture='dense', cuda=False, verbose=True)
+#steganogan = SteganoGAN.load(architecture='dense', cuda=False, verbose=True)
+steganogan = SteganoGAN.load(architecture='dense', verbose=True)
+
+# Debug
+# hiddenMsg = steganogan.decode('output.png')
+# print(hiddenMsg)
 
 app = FastAPI(debug=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -41,7 +44,7 @@ def decode_image(image_string):
     # format datetime using strftime()
     time1 = now.strftime(format)
 
-    filename = time1 + '.jpg'
+    filename = time1 + '.png'
     # filename = str(datetime.now().date()) + '.jpg'
     with open(os.path.join('static/original', filename), 'wb') as f:
         f.write(imgdata)
@@ -49,7 +52,7 @@ def decode_image(image_string):
         return filename
 
 @app.post("/encode/image")
-async def encodeImage(qImage: encodedImage):
+def encodeImage(qImage: encodedImage):
     exampleHash = qImage.data  # "00966efaba812660d426a0f10542dadac919f6465dc0a87eac413f934bc0526a"
     q = qImage.img
     original_img_path = decode_image(q)
@@ -60,10 +63,11 @@ async def encodeImage(qImage: encodedImage):
 
 
 @app.post("/decode/image")
-async def decodeImage(qImage: decodedImage):
+def decodeImage(qImage: decodedImage):
     q = qImage.img
     original_img_path = decode_image(q)
     input_image = 'static/original/' + original_img_path
+    print("Path:", input_image)
     try:
         hiddenMsg = steganogan.decode(input_image)
     except ValueError as err:
