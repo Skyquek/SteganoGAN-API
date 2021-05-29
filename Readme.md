@@ -23,3 +23,10 @@ b) Build a container named fast-api-psm from image fast-api that mapping port 35
 ```
 $ docker run -d --name fast-api-psm -p 8000:80 fast-api
 ```
+
+## 3. Colab Server (Please check on my colab notebook)
+1. !git clone to the server
+```
+!pip install fastapi nest-asyncio pyngrok uvicorn
+```
+2. !python colab-server.py
